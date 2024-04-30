@@ -1,0 +1,40 @@
+package com.aloha.spring.dao;
+
+import java.util.List;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.aloha.spring.dto.Board;
+
+@Repository			// 데이터 액세스 객체로 빈 등록
+public class BoardDAO {
+
+	private JdbcTemplate jdbcTemplate;
+
+	public List<Board> list() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Board select(int no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int insert(Board board) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int update(Board board) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int delete(int no) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+}

@@ -1,0 +1,5 @@
+package com.aloha.spring.dao;
+
+public class BoardDAO {
+
+}

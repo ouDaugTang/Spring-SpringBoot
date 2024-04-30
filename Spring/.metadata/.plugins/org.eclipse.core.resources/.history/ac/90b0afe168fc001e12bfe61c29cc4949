@@ -1,0 +1,20 @@
+package Board.contoller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import Board.dto.Board;
+import Board.service.BoardService;
+import Board.service.BoardServiceImpl;
+
+public class BoardUpdateController {
+	private BoardService boardService = new BoardServiceImpl();
+	
+	public String read(HttpServletRequest request) throws Exception {
+		Board boardList = boardService.select((Integer) request);
+		request.setAttribute("boardList", boardList);
+		String view = "/board/read.jsp";
+		return view;
+	}
+}

@@ -1,0 +1,5 @@
+package Board.service;
+
+public class BoardServiceImpl {
+
+}

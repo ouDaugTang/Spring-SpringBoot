@@ -1,0 +1,45 @@
+package controller;
+
+import java.util.Map;
+
+public class ModelView {
+	
+	Map<String, Object> model;
+	String view;
+	boolean redirect =false;
+	
+	public ModelView() {
+	}
+
+	public ModelView(Map<String, Object> model, String view) {
+		this.model = model;
+		this.view = view;
+	}
+
+	public Map<String, Object> getModel() {
+		return model;
+	}
+
+	public void setModel(Map<String, Object> model) {
+		this.model = model;
+	}
+
+	public String getView() {
+		return view;
+	}
+
+	public void setView(String view) {
+		this.view = view;
+	}
+
+	public boolean isRedirect() {
+		return redirect;
+	}
+
+	public void setRedirect(boolean redirect) {
+		this.redirect = redirect;
+	}
+	
+	
+	
+}

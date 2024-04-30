@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<tr>
+		<td align="center">${board.no}</td>
+		<td width="300"><a
+			href="${ pageContext.request.contextPath }/board/read?no=${board.no}">
+				${board.title} </a></td>
+		<td align="center" width="120">${board.writer}</td>
+		<%--                <td align="center">${board.regDate}</td>         --%>
+		<td align="center"><fmt:formatDate value="${board.regDate}"
+				pattern="yyyy-MM-dd HH:mm:ss" /></td>
+		<%--                <td align="center">${board.updDate}</td>         --%>
+		<td align="center"><fmt:formatDate value="${board.updDate}"
+				pattern="yyyy-MM-dd HH:mm:ss" /></td>
+		<td align="center">${board.views}</td>
+	</tr>
+</body>
+</html>

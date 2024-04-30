@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>목록</title>
+</head>
+<body>
+    <h1>게시글 목록</h1>
+    <a href="/board/insert">글쓰기</a>
+    
+    <table border="1">
+    <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>내용</th>
+        <th>수정일자</th>
+        <th>등록일자</th>
+        <th>조회수</th>
+    </tr>
+
+    <tr th:each="board : ${boardList}" >
+        <td align="center" th:text="${board.no}"></td>
+
+        <td align="center">
+            <a th:href="|/board/read?no=${board.no}|" th:text="${board.title}"></a>
+        </td>
+        <td align="center" th:text="${board.writer}"></td>
+        <td align="center" th:text="${board.content}"></td>
+        <td align="center" >
+            <span th:text="${#dates.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+        </td>
+        <td align="center" >
+            <span th:text="${#dates.format(board.updDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+        </td>
+        <td align="center" th:text="${board.views}"></td>
+    </tr>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+package com.aloha.spring;
+
+public class BeanController {
+
+}

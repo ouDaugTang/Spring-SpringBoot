@@ -1,0 +1,20 @@
+package com.aloha.spring.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.aloha.spring.dao.BoardDAO;
+import com.aloha.spring.dto.Board;
+
+public class BoardServiceImpl implements BoardService {
+	
+	@Autowired
+	private BoardDAO boardDAO;
+
+	@Override
+	public List<Board> list() {
+		return boardDAO.list();
+	}
+}

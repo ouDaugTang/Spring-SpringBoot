@@ -1,0 +1,28 @@
+package com.aloha.spring.controller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * 컨트롤러 응답
+ * @author tj-bu-706-21
+ *
+ */
+@Controller
+@RequestMapping("/response")
+public class ResponseController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ResponseController.class);
+
+	/**
+	 * 요청 경로 : /response/index
+	 * 응답 	   : /reponse/index.jsp 
+	 */
+	@RequestMapping("/index")
+	public void response() {
+		logger.info("void 타입 - /response/index");
+		logger.info("/response/index.jsp 뷰를 응답");
+	}
+}

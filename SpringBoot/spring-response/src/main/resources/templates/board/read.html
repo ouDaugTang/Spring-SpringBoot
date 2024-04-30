@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가입</title>
+</head>
+<body>
+    <h1>게시글 조회</h1>
+    <a href="/board/update?no=10">게시글 수정 : 10</a>
+    
+    <form action="/board/delete" method="post">
+        <input type="hidden" name="no" th:value="${board.no}">
+
+        <table>
+            <tr>
+                <td>제목</td>
+                <td>
+                    <input type="text" name="title" th:value="${board.title}">
+                </td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td>
+                    <input type="text" name="writer" th:value="${board.writer}">
+                </td>
+            </tr>
+                <td colspan="2">
+                    <textarea name="content" id="content" cols="40" rows="5"
+                     th:text="${board.content}"></textarea>
+                </td>
+
+        </table>
+        <div>
+            <button type="submit">수정</button>
+            <button type="button" onclick="moveList()">목록</button>
+        </div>
+    </form>
+    
+    <script>
+
+        let no = "[[${board.no}]]"
+
+        function moveUpdate() {
+            location.href = '/board/update?no' + no
+        }
+
+         // 목록 요청
+         function moveList() {
+            location.href = '/board/list'
+        }
+    </script>
+</body>
+</html>

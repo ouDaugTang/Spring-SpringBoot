@@ -1,0 +1,24 @@
+package com.aloha.spring.service;
+
+import org.springframework.stereotype.Service;
+
+import com.aloha.spring.dao.BoardDAO;
+
+@Service
+public class BoardServiceImpl implements BoardService{
+	
+	private BoardDAO boardDAO;
+	
+	/**
+	 * 생성자 주입
+	 * @param boardDAO
+	 */
+	public BoardServiceImpl(BoardDAO boardDAO) {
+		this.boardDAO = boardDAO;
+	}
+
+	@Override
+	public void test() {
+		boardDAO.test();
+	}
+}

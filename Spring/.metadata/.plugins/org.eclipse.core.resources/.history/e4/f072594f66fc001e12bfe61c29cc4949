@@ -1,0 +1,104 @@
+package controller;
+
+import java.io.IOException;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import Board.contoller.BoardListController;
+
+/**
+ * Servlet implementation class FrontController
+ */
+@WebServlet("*.do")
+public class FrontController extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public FrontController() {
+		
+	}
+	// doGet() : GET 메소드 방식으로 요청이 왔을 때 실행되는 메소드
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+
+		// jsp 응답하기
+		String view = "index.jsp";
+		boolean redirect = false;
+		ModelView modelView = null;
+		
+		String requestURI = request.getRequestURI();
+		String pathInfo = request.getPathInfo();
+		StringBuffer requsetURL = request.getRequestURL();
+		System.out.println("요청 URL : " + requestURI);
+		System.out.println("requestURL : " + requsetURL.toString());
+		System.out.println("pathInfo : " + pathInfo);
+		
+		if ( requestURI.contains("/board/list.do")) {
+			BoardListController boardListController = new BoardListController();
+			try {
+				view = boardListController.process(request);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		// 모델 등록
+//		createModel(modelView, request);
+		
+		// 페이지 이동
+		// 1. redirect
+		// 2. forward
+		if (redirect) {
+			response.sendRedirect(request.getContextPath() + view);
+		} else {
+			RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+			dispatcher.forward(request,response);
+		}
+		
+		
+	}
+
+	// doPost() : POST 메소드 방식으로 요청이 왔을 때 실행되는 메소드
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+	/**
+	 * 모델 등록 메소드
+	 * 
+	 * @param modelView
+	 * @param request
+	 */
+	public void createModel(ModelView modelView, HttpServletRequest request) {
+
+		if (modelView == null) {
+			return;
+		}
+		Map<String,Object> model = modelView.getModel();
+		
+		if (model == null) {
+			return;
+		}
+		
+		Set<String> keySet = model.keySet();
+		for (String key : keySet) {
+			Object value = model.get(key);
+			request.setAttribute(key, value);
+		}
+	}
+
+}

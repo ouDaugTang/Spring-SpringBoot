@@ -1,0 +1,35 @@
+package com.aloha.spring.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.aloha.spring.dto.Person;
+
+@Controller
+public class ModelController {
+	
+	/**
+	 * 요청 경로 : /model/person
+	 * @param model
+	 * @param person
+	 * @return
+	 */
+	@RequestMapping("/model/person")	// method: GET(기본값)
+	public String person(Model model, Person person) {
+		// Model 인터페이스의 addAttribute() 메소드로 데이터를 등록하여, 뷰에 전달한다.
+		// Model 
+		// : 컨트롤러에서 등록한 데이터를 뷰에 전달하는 인터페이스
+//		Person person = new Person();
+		person.setName("김조은");
+		person.setAge(20);
+		
+		// addAttribute("변수명", 객체) 메소드로 모델에 객체를 등록한다.
+		// model.addAttribute("person", person);
+		model.addAttribute(person);				// 변수명을 생략하면 객체명과 일치하는 이름으로 접근할 수 있다.
+												// view 에서 ${} (표현언어) 로 사용할 수 있다.
+												// ${person.name}, ${person.age}
+												// getter 메소드가 정의되어 있어야 위와같이 뷰에서 접근할 수 있다.
+		return "model/person";					// view : model/person.jsp
+	}
+}

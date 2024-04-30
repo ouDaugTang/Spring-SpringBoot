@@ -1,0 +1,21 @@
+package Board.contoller;
+
+import javax.servlet.http.HttpServletRequest;
+
+import Board.service.BoardService;
+import Board.service.BoardServiceImpl;
+import controller.ModelView;
+
+// /board 경로로 요청이 오면, 처리하는 컨트롤러
+public class BoardController {
+	
+	private BoardService boardService = new BoardServiceImpl();
+			
+			
+	public ModelView process(HttpServletRequest request) throws Exception {
+		String view = "";
+		String requestURI = request.getRequestURI();
+		ModelView modelView = new ModelView();
+		
+	}
+}

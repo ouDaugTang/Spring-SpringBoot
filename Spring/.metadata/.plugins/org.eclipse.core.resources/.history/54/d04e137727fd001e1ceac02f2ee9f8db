@@ -1,0 +1,15 @@
+package com.aloha.spring.dto;
+
+import lombok.Data;
+
+public class Person {
+	
+	@Data
+	private String name;
+	private int age;
+	
+	
+	
+		
+	
+}

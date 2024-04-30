@@ -1,0 +1,5 @@
+package com.aloha.spring.mapper;
+
+public class BoardMapper {
+
+}

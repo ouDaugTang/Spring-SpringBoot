@@ -1,0 +1,34 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringDiApplication<spring-di>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.aloha.springdi.SpringDiApplication",
+            "projectName": "spring-di",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringRequestApplication<spring-request>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.aloha.springrequest.SpringRequestApplication",
+            "projectName": "spring-request",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringResponseApplication<spring-response>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.aloha.springresponse.SpringResponseApplication",
+            "projectName": "spring-response",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

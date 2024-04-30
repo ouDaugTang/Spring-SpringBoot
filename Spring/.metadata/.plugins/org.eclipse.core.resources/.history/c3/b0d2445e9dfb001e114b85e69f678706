@@ -1,0 +1,14 @@
+package com.aloha.spring.config;
+
+import org.springframework.context.annotation.Configuration;
+
+import com.aloha.spring.dto.Board;
+
+@Configuration
+public class Config {
+
+	public Board getBoard() {
+		return new Board("제목있음", "작성자있음", "내용있음");
+		
+	}
+}

@@ -1,0 +1,11 @@
+package com.aloha.spring.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.aloha.spring.dao.BoardDAO;
+
+public class BoardServiceImpl implements BoardService {
+	
+	@Autowired
+	private BoardDAO boardDAO;
+}

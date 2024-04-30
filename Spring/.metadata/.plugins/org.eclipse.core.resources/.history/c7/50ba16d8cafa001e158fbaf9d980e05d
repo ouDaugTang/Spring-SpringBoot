@@ -1,0 +1,5 @@
+package DI.Service;
+
+public class MyService {
+
+}

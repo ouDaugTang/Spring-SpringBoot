@@ -1,0 +1,21 @@
+package com.aloha.spring.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface BoardMapper {
+
+  // 메소드 명은 Mapper.xml 매핑 파일의 SQL 태그 id 값과 일치해야한다.
+  public List<Board> list() throws Exception;
+
+	public Integer insert(Board board) throws Exception;
+
+	public Board select(Integer no) throws Exception;
+
+	public Integer update(Board board) throws Exception;
+
+	public Integer delete(Integer no) throws Exception;
+
+}

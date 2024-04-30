@@ -1,0 +1,212 @@
+package com.aloha.spring.controller;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.aloha.spring.dto.Board;
+
+@Controller				// Controller 로 지정하고 빈 등록
+@RequestMapping("/request")
+public class RequestController {
+
+	private static final Logger Logger = LoggerFactory.getLogger(RequestController.class);
+		
+	
+	
+	/**
+	 * @RequestMapping : 요청경로 매핑
+	 * 	-	/request/board 로 요청
+	 *  -	/request/board.jsp 응답
+	 * @return
+	 */
+//	@RequestMapping(value = "/request/board", method = RequestMethod.GET)
+//	@RequestMapping("/request/board")
+	@RequestMapping("/board")
+	public String list() {
+		Logger.info("[GET] - /request/board");
+		return "request/board";
+	}
+	
+	@RequestMapping(value = "/board/{no}", method = RequestMethod.GET)
+	public String requestPath(@PathVariable("no") int no) {
+		Logger.info("[GET] - /request/board/{no}");
+		Logger.info("no : " + no);
+		
+		return "request/board";
+		
+	}
+	
+	/**
+	 * 요청 메소드 매핑
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/board", method = RequestMethod.POST)
+//	public String requestPost(@RequestParam("no") int data) {
+		public String requestPost(@RequestParam int no) {
+		Logger.info("[POST] - /request/post");
+		Logger.info("no : " + no);
+		return "SUCCESS - no : " + no;
+	}
+	
+	/**
+	 * 파라미터 매핑
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/board", method = RequestMethod.GET, params = "id")
+	public String requestParams(@RequestParam String id) {
+		Logger.info("[GET] - /request/board?id=board_123");
+		Logger.info("id : " + id);
+		
+		return "request/board";
+	}
+	
+	/**
+	 * 풋 매핑(form 태그 get, post 말고 put, delete 방식으로도 가능)
+	 * @return
+	 */
+	// headers = "헤더명 = 값"
+	@RequestMapping(value = "/board", method = RequestMethod.PUT)
+	public String requestPut() {
+		Logger.info("[POST] (Put) - /request/board");
+		Logger.info("헤더 매핑...");
+		return "redirect:/";
+		
+	}
+	/*
+    * @ResponseBody O : return "데이터";      ---> 응답메시지( 본문 : 데이터 )
+    * @ResponseBody X : return "화면이름";   ---> 뷰 리졸버가 jsp 선택 -> 렌더링 -> html 응답 
+    */
+	
+	// headers = "헤더명 = 값"
+	@ResponseBody
+	@RequestMapping(value = "/board", method = RequestMethod.POST, headers = "Content-Type=application/json")
+	public String requestHeader1() {
+		Logger.info("[POST] - /request/board");
+		Logger.info("헤더 매핑...");
+		return "SUCCESS";
+		
+	}
+	
+	/**
+	 * 컨텐츠 타입 매핑
+	 * - Content-Type 헤더의 값으로 매핑
+	 * - consumes = "컨텐츠 타입 값"
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/board", method = RequestMethod.POST, consumes = "application/xml")
+	public String requestContentType(int no) {
+		Logger.info("[POST] = /board/request");
+		Logger.info("컨텐츠 타입 매핑...");
+		return "SUCCESS";
+	}
+	
+	
+	/**
+	 * Accept 매핑
+	 * - Accept 헤더의 값으로 매핑 (Accept 헤더는 응답 답을 컨텐츠 타입을 지정)
+	 * - produces = "컨텐츠 타입 값"
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/board", method = RequestMethod.POST, produces = "application/json")
+	public String requestAccept() {
+		Logger.info("[POST] = /board/request");
+		Logger.info("Accept 매핑...");
+		return "SUCCESS";
+	}
+
+	/* -------------------------------[요청 경로 매핑]--------------------------- */
+	/* ---------------------------------------------------------------------- */
+	/* --------------------------------[요청 처리]------------------------------ */
+	/**
+	 * 요청 헤더를 가져오기
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/header", method = RequestMethod.GET)
+	public String header(@RequestHeader("Accept") String accept,@RequestHeader("User-Agent") String userAgent, HttpServletRequest request) {
+		
+		//@RequestHeader : 헤더명을 지정하여 헤더 값을 가져오는 어노테이션
+		// * @RequestHeader("헤더명") 타입 매개변수
+		Logger.info("[GET] - /request/header");
+		Logger.info("@RequestHeader 를 통한 헤더 정보 가져오기");
+		Logger.info("Accept - " + accept);
+		Logger.info("User-Agent - " + userAgent);
+		
+		String requestAccept = request.getHeader("Accept");
+		String requestUserAgent = request.getHeader("User - Agent ");
+		Logger.info("HTTPServletRequest를 통한 헤더 정보 가져오기");
+		Logger.info("Accept - " + requestAccept);
+		Logger.info("User-Agent - " + requestUserAgent);
+		
+		return "SUCCESS";
+
+		
+	}
+	
+	/**
+	    * 요청 본문 가져오기
+	    * @param board
+	    * @return
+	    */
+	   @ResponseBody
+	   @RequestMapping(value = "/body", method = RequestMethod.POST)
+	   public String requestBody(@RequestBody Board board) {
+	      // @RequestBody
+	      // : HTTP 요청 메시지의 본문(body)의 내용을 객체로 변환하는 어노테이션
+	      //    클라이언트에서 contentType : JSON 형식에 데이터를 보낸 경우
+	      //    객체로 변환하기 위해 사용한다.
+	      // * 생략가능 (주로 생략하고 쓴다.)
+	      logger.info("[POST] - /request/body");
+	      logger.info(board.toString());
+	      return "SUCUESS";
+	   }
+	   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

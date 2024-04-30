@@ -1,0 +1,5 @@
+package com.aloha.spring.controller;
+
+public class BoardController {
+
+}

@@ -1,0 +1,5 @@
+package DI.DAO;
+
+public class BoardDAO {
+
+}

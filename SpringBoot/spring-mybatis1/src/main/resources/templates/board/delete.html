@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>삭제</title>
+</head>
+<body>
+    <body>
+        <h1>게시글 삭제</h1>
+        <form action="/board/delete" method="POST">
+            <input type="hidden" name="no" th:value="${board.no}" />
+            <table>
+                <tr>
+                    <td><label for="title">제목</label></td>
+                    <td><input type="text" name="title" th:value="${board.title}" /></td>
+                </tr>
+                <tr>
+                    <td><label for="writer">작성자</label></td>
+                    <td><input type="text" name="writer" th:value="${board.writer}" /></td>
+                </tr>
+                <tr>
+                    <td><label for="content">내용</label></td>
+                    <td>
+                        <textarea rows="5" cols="20" name="content" th:text="${board.content}"></textarea>
+                    </td>
+                </tr>
+            </table>
+            
+            <div>
+                <input type="submit" value="삭제">
+                <a th:href="|/board/list|">목록</a>
+            </div>
+        </form>
+
+</body>
+</html>

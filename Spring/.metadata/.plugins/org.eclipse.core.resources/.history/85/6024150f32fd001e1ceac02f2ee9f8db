@@ -1,0 +1,136 @@
+package com.aloha.spring.controller;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.aloha.spring.dto.Board;
+import com.aloha.spring.service.BoardService;
+
+/**
+ * 컨트롤러 응답
+ * @author tj-bu-706-21
+ *
+ */
+@Controller
+@RequestMapping("/response")
+public class ResponseController {
+	
+	@Autowired
+	private BoardService boardService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(ResponseController.class);
+
+	/**
+	 * 요청 경로 : /response/index
+	 * 응답 	   : /response/index.jsp 
+	 */
+	@RequestMapping("/index")
+	public void response(Model model) {
+		logger.info("void 타입 - /response/index");
+		logger.info("/response/index.jsp 뷰를 응답");
+		model.addAttribute("message", "Hello");
+	}
+	
+	/**
+	 * 요청 경로 : /response/view
+	 * 응답 	   : /response/index.jsp 
+	 * @return
+	 */
+	@RequestMapping("/view")
+	public String responseView() {
+		logger.info("String 타입 - /response/index");
+		logger.info("/response/index.jsp 뷰를 응답");
+		logger.info("view 이름을 반환값으로 지정");
+		return "response/index";
+	}
+	
+	/**
+	 * 요청 경로  : /response/model/view
+	 * 응답 	   : /response/index.jsp 
+	 * @return
+	 */
+	@RequestMapping("/model/view")
+	public ModelAndView responseModeAndView() {
+		// ModelAndView 
+		// 뷰와 모델 데이터를 지정하여 함께 반환 처리할 수 있는 스프링프레임워크 클래스
+		logger.info("ModelAndView 타입 - /response/model/view");
+		logger.info("/response/index.jsp 뷰를 응답");
+		logger.info("모델과 뷰를 ModelAndView 객체에 지정하여 응답");
+		
+		ModelAndView mv = new ModelAndView();
+		// 뷰이름 지정
+		mv.setViewName("/response/index");			// view : /response/index.jsp
+		
+		// 모델 등록
+		Board board = new Board("제목","작성자","내용");
+		mv.addObject("board", board);
+		mv.addObject("message", "ModelAndView 컨트롤러 응답...");
+													// model : board, message
+		return mv;
+	}
+	
+	/**
+	 * 요청 경로  : /response/data/board
+	 * 응답 	   : board (JSON/XML)
+	 * @ResponseBody : 응답하는 데이터를 응답 메시지의 body(본문) 에 지정하는 어노테이션
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/data/board")
+	public Board responseBoard() {
+		Board board = new Board("제목","작성자","내용");
+		return board;
+	}
+	
+	/**
+	 * 브라우저에서 Accept 헤더의 값이 우선순위
+	 * - text/html
+	 * - application/xhtml+xml
+	 * - application/xml
+	 * - ...
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	// @RequestMapping("/data/board/list")
+	@RequestMapping(value = "/data/board/list", produces = "application/json")
+	public List<Board> responseBoardList() throws Exception {
+		// produces = "application/json"
+		// - Accept:application/xml 으로 요청이 와도, json 으로 응답할 수 있다.
+		
+		
+		List<Board> boardList = boardService.list();
+		return boardList;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

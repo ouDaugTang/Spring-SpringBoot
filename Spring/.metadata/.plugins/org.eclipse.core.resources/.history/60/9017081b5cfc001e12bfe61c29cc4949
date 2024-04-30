@@ -1,0 +1,5 @@
+package Board.dto;
+
+public class board {
+
+}

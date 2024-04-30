@@ -1,0 +1,47 @@
+package com.aloha.spring.controller;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.aloha.spring.dto.Board;
+import com.aloha.spring.service.BoardService;
+
+@Controller							// 컨트롤러로 빈 등록
+@RequestMapping("/board")			// 클래스 레벨 경로 /board 로 지정
+public class BoardController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+	
+	@Autowired
+	private BoardService boardService;
+	
+	/**
+	 * 게시글 목록
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	/* @RequestMapping(value = "/list", method =RequestMethod.GET) */
+	@GetMapping("list")						// Spring 4.3 버전 사용가능
+	public String list(Model model) throws Exception {
+		List<Board> boardList = boardService.list();
+		model.addAttribute("boardList",boardList);
+		return "board/list";				// board/list.jsp 화면 응답
+	}
+	
+	@GetMapping("/read?no=1")						// Spring 4.3 버전 사용가능
+	public String select(@RequestParam int no, Model model) throws Exception {
+		
+		Board read = boardService.select(no);
+		model.addAttribute("read",read);
+		return "board/read";				// board/list.jsp 화면 응답
+	}
+}
