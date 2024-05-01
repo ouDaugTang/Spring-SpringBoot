@@ -25,6 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM file
         WHERE parent_table = #{parentTable}
           AND parent_no = #{parentNo}
+          AND file_code != 1
         ORDER BY reg_date DESC
     </select>
 

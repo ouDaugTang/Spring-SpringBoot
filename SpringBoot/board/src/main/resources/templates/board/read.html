@@ -37,6 +37,8 @@
                         <!-- 파일목록 -->
                         <th:block th:each="file : ${fileList}" >
                             <li>
+                                <!-- 썸네일 이미지 -->
+                                <img src="|/file/img/${file.no}|" alt="썸네일" width="200">
                                 <!-- 파일명 (다운로드) -->
                                 <a th:href="|/file/${file.no}|" th:text="${file.originName}"></a>
                                 <!-- 파일 삭제 -->

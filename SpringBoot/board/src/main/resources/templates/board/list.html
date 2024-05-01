@@ -11,6 +11,7 @@
     <table border="1">
         <tr>
             <th width="50">번호</th>
+            <th width="100">썸네일</th>
             <th width="300">제목</th>
             <th width="100">작성자</th>
             <th width="200">등록일자</th>
@@ -30,6 +31,9 @@
         </th:block>
         <th:block th:each="board : ${boardList}">
             <td align="center" th:text="${board.no}"></td>
+            <td>
+                <img th:src="|/file/img/${board.fileNo}|" alt="썸네일" width="100">
+            </td>
             <td>
                 <!-- th:???="|문자열+${표현식}|" -->
                 <a th:href="|/board/read?no=${board.no}|" 

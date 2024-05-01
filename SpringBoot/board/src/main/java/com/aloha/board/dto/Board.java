@@ -21,7 +21,14 @@ public class Board {
     private Date updDate;
     private int views;
 
+    
+    // 썸네일 이미지 파일
+    MultipartFile thumbnail;
+    
     // 파일
     List<MultipartFile> file;
+    
+    // 파일 번호
+    private int fileNo;
 }
  

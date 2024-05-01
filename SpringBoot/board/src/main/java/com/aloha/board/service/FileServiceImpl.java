@@ -158,7 +158,8 @@ public class FileServiceImpl implements FileService {
         String filePath = uploadPath + "/" + fileName;
         file.setFilePath(filePath);
         file.setFileSize(fileSize);
-        file.setFileCode(0);
+        // ⭐ 이미 넘겨받은 인스턴스로 쭉 가기때문에 필요 없음
+        // file.setFileCode(0); 
 
         fileMapper.insert(file);
 

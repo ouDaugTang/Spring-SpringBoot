@@ -26,3 +26,24 @@ CREATE TABLE `file` (
   `file_code` int NOT NULL DEFAULT '0',         
   PRIMARY KEY (`no`)
 ) COMMENT='파일';
+
+TRUNCATE board;
+TRUNCATE file;
+
+-- board, file 테이블 조인 조회
+SELECT b.*
+      ,f.no file_no
+      ,f.file_name
+      ,f.file_path
+      ,f.file_code
+FROM board b LEFT JOIN (  
+                          SELECT *
+                          FROM file
+                          WHERE parent_table = "board"
+                            AND file_code = 1
+                        ) f
+             ON (b.no = f.parent_no)
+-- WHERE f.parent_table = "board"
+--   AND f.file_code = 1
+                                  # file_code = 1 (대표 썸네일)
+;

@@ -8,8 +8,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 게시글 목록 -->
     <select id="list" resultType="Board">
-        SELECT *
-        FROM board
+        SELECT b.*
+        ,f.no file_no
+        ,f.file_name
+        ,f.file_path
+        ,f.file_code
+    FROM board b LEFT JOIN (  
+                            SELECT *
+                            FROM file
+                            WHERE parent_table = "board"
+                                AND file_code = 1
+                            ) f
+                ON (b.no = f.parent_no)
         ORDER BY reg_date DESC
     </select>
 
