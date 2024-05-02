@@ -1,5 +1,6 @@
 package com.aloha.board.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.aloha.board.dto.Board;
 import com.aloha.board.dto.Files;
+import com.aloha.board.dto.Option;
+import com.aloha.board.dto.Page;
 import com.aloha.board.service.BoardService;
 import com.aloha.board.service.FileService;
 
@@ -54,12 +57,35 @@ public class BoardController {
      * @return
      * @throws Exception 
      */
-    @GetMapping("/list")
-    public String list(Model model) throws Exception {
+    @GetMapping("/list")            // Page -> 아무것도 안 넘어올때 기본생성
+    public String list(Model model, Page page, Option option) throws Exception {
         // 데이터 요청
-        List <Board> boardList = boardService.list();
+        // List <Board> boardList = boardService.list(page);        // [페이징]
+        // List <Board> boardList = boardService.list(page);        // [검색]
+        // List <Board> boardList = boardService.list(page);        // [검색]
+        // List <Board> boardList = boardService.list(page);        // [페이징] +[검색]
+        List <Board> boardList = boardService.list(page, option);
+
+        // 페이징
+        log.info("page : " + page);
+        // 검색
+        log.info("keyword : " + option);
         // 모델 등록
         model.addAttribute("boardList", boardList);
+        model.addAttribute("page", page);
+
+        model.addAttribute("option", option);
+
+        // 동적으로 옵션값을 가져오는 경우
+        List<Option> optionList = new ArrayList<Option>();
+        optionList.add(new Option("전체", 0));
+        optionList.add(new Option("제목", 1));
+        optionList.add(new Option("내용", 2));
+        optionList.add(new Option("제목+내용", 3));
+        optionList.add(new Option("작성자", 4));
+        model.addAttribute("optionList", optionList);
+
+
         // 뷰 페이지 지정
         return "/board/list";       // resources/templates/board/list.html
     }
@@ -79,6 +105,14 @@ public class BoardController {
 
         // 데이터 요청
         Board board = boardService.select(no);
+
+        //조회수 증가
+        int result = boardService.views(no);
+        if (result > 0) {
+            log.info("성공");
+        }else {
+            log.info("실패");
+        }
 
         // 파일 목록 요청
         file.setParentTable("board");

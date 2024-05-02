@@ -3,8 +3,11 @@ package com.aloha.board.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.aloha.board.dto.Board;
+import com.aloha.board.dto.Option;
+import com.aloha.board.dto.Page;
 
 /**
  * %%%%%@Repository%%%%%%%
@@ -15,7 +18,8 @@ import com.aloha.board.dto.Board;
 public interface BoardMapper { // Mapper.java = interface!! 
 
     // 게시글 목록
-    public List<Board> list() throws Exception;
+    public List<Board> list(@Param("page") Page page
+                            ,@Param("option") Option option) throws Exception;
     // 게시글 조회
     public Board select(int no) throws Exception;
     // 게시글 등록
@@ -27,5 +31,15 @@ public interface BoardMapper { // Mapper.java = interface!!
     
     // 게시글 번호(기본키) 최댓값
     public int maxPk() throws Exception;
+
+    // 게시글 데이터 개수 조회
+    public int count(@Param("option") Option option) throws Exception;
+
+    // 게시글 목록 - [검색]
+    public List<Board> search(@Param("option") Option option) throws Exception;
+
+    // 뷰 증가
+    public int views(@Param("no") int no) throws Exception;
+
     
 }

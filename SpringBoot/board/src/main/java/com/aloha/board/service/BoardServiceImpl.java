@@ -8,6 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.aloha.board.dto.Board;
 import com.aloha.board.dto.Files;
+import com.aloha.board.dto.Option;
+import com.aloha.board.dto.Page;
 import com.aloha.board.mapper.BoardMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,15 +27,13 @@ public class BoardServiceImpl implements BoardService {
     
 
     @Override
-    public List<Board> list() throws Exception {
-        // TODO : boardMapper 로 list() 호출
-        /*
-         *        ➡ List<Board> boardList 로 받아옴
-         *        ➡ return boardList
-         */
-        // 힌트 
-        List<Board> boardList = boardMapper.list();
-        // ...
+    public List<Board> list(Page page, Option option) throws Exception {
+
+        // 게시글 데이터 개수 조회
+        int total = boardMapper.count(option);
+        page.setTotal(total);
+        
+        List<Board> boardList = boardMapper.list(page, option);
         return boardList;
     }
 
@@ -125,6 +125,22 @@ public class BoardServiceImpl implements BoardService {
         int result = boardMapper.delete(no);
         return result;
     }
+
+    @Override
+    public List<Board> search(Page page) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'search'");
+    }
+
+    @Override
+    public int views(int no) throws Exception {
+       int result =  boardMapper.views(no);
+
+        return result;
+
+    }
+
+    
 
 
 }

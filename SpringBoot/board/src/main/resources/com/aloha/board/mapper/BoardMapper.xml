@@ -8,20 +8,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 게시글 목록 -->
     <select id="list" resultType="Board">
-        SELECT b.*
-        ,f.no file_no
-        ,f.file_name
-        ,f.file_path
-        ,f.file_code
-    FROM board b LEFT JOIN (  
-                            SELECT *
-                            FROM file
-                            WHERE parent_table = "board"
-                                AND file_code = 1
-                            ) f
-                ON (b.no = f.parent_no)
-        ORDER BY reg_date DESC
+       SELECT b.*
+      ,f.no file_no
+      ,f.file_name
+      ,f.file_path
+      ,f.file_code
+    FROM board b LEFT JOIN ( 
+                         SELECT *
+                         FROM file
+                         WHERE parent_table = "board"
+                           AND file_code = 1         
+                        ) f
+             ON (b.no = f.parent_no)
+        WHERE 
+        <if test="option.code == 0">
+            title LIKE CONCAT('%', #{option.keyword}, '%')
+        OR writer LIKE CONCAT('%', #{option.keyword}, '%')
+        OR content LIKE CONCAT('%', #{option.keyword}, '%')
+        </if>
+        
+        <if test="option.code == 1">
+            title LIKE CONCAT('%', #{option.keyword}, '%')
+        </if>
+        
+        <if test="option.code == 2">
+            content LIKE CONCAT('%', #{option.keyword}, '%')
+        </if>
+        
+        <if test="option.code == 3">
+            title LIKE CONCAT('%', #{option.keyword}, '%')
+        OR content LIKE CONCAT('%', #{option.keyword}, '%')
+        </if>
+        
+        <if test="option.code == 4">
+            writer LIKE CONCAT('%', #{option.keyword}, '%')
+        </if>
+        ORDER BY b.reg_date DESC 
+        LIMIT #{page.index}, #{page.rows}
     </select>
+    
 
     <!-- 게시글 조회 -->
     <select id="select" resultType="Board">
@@ -57,6 +82,85 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT MAX(no)
         FROM board
     </select>
+
+    <!-- 데이터 개수 조회 -->
+    <!-- 메서드 이름이 count 인 -->
+    <select id="count" resultType="int">
+        SELECT COUNT(*)
+        FROM board
+        WHERE 
+        <if test="option.code == 0">
+            title LIKE CONCAT('%', #{option.keyword}, '%')
+        OR writer LIKE CONCAT('%', #{option.keyword}, '%')
+        OR content LIKE CONCAT('%', #{option.keyword}, '%')
+        </if>
+        
+        <if test="option.code == 1">
+            title LIKE CONCAT('%', #{option.keyword}, '%')
+        </if>
+        
+        <if test="option.code == 2">
+            content LIKE CONCAT('%', #{option.keyword}, '%')
+        </if>
+        
+        <if test="option.code == 3">
+            title LIKE CONCAT('%', #{option.keyword}, '%')
+        OR content LIKE CONCAT('%', #{option.keyword}, '%')
+        </if>
+        
+        <if test="option.code == 4">
+            writer LIKE CONCAT('%', #{option.keyword}, '%')
+        </if>
+        ORDER BY reg_date DESC
+    </select>
+
+    <!-- 게시글 목록 검색-->
+    <select id="search" resultType="Board">
+            SELECT *
+            FROM board
+            WHERE 
+                <if test="option.code == 0">
+                  title LIKE CONCAT('%', #{option.keyword}, '%')
+               OR writer LIKE CONCAT('%', #{option.keyword}, '%')
+               OR content LIKE CONCAT('%', #{option.keyword}, '%')
+                </if>
+                
+                <if test="option.code == 1">
+                  title LIKE CONCAT('%', #{option.keyword}, '%')
+                </if>
+                
+                <if test="option.code == 2">
+                   content LIKE CONCAT('%', #{option.keyword}, '%')
+                </if>
+                
+                <if test="option.code == 3">
+                  title LIKE CONCAT('%', #{option.keyword}, '%')
+               OR content LIKE CONCAT('%', #{option.keyword}, '%')
+                </if>
+                
+                <if test="option.code == 4">
+                   writer LIKE CONCAT('%', #{option.keyword}, '%')
+                </if>
+            ORDER BY reg_date DESC
+    </select>
+
+    <update id="views">
+        UPDATE board
+           SET views = views + 1
+        WHERE no = #{no}
+    </update>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

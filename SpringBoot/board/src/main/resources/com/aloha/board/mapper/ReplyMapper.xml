@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace="매퍼 인터페이스 경로" --> 
+<mapper namespace="com.aloha.board.mapper.ReplyMapper">
+
+    <!-- 리플 목록 -->
+    <select id="list" resultType="Reply">
+        SELECT *
+        FROM reply
+        ORDER BY reg_date DESC
+    </select>
+
+    <!-- ⭐ 댓글 목록 - [글번호] -->
+    <select id="listByBoardNo" resultType="Reply">
+        SELECT *
+        FROM reply
+        WHERE board_no = #{boardNo}
+        ORDER BY reg_date DESC
+    </select>
+
+    <select id="read" resultType="Reply">
+        SELECT *
+        FROM reply
+        WHERE no = #{no}
+    </select>
+
+    <!-- 리플 등록 -->
+    <insert id="insert">
+        INSERT INTO reply( board_no, parent_no, writer, content )
+        VALUES ( #{boardNo}, #{parentNo}, #{writer}, #{content} )
+    </insert>
+
+    <!-- 리플 수정 -->
+    <update id="update">
+        UPDATE reply
+           SET writer = #{writer}
+              ,content = #{content}
+              ,upd_date = now()
+        WHERE no = #{no}
+    </update>
+
+    <!-- 리플 삭제 -->
+    <delete id="delete">
+        DELETE FROM reply
+        WHERE no = #{no}
+    </delete>
+
+</mapper>
