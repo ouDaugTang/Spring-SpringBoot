@@ -21,9 +21,8 @@ public class FileServiceImpl implements FileService {
 
     @Autowired
     private FileMapper fileMapper;
-    
 
-    @Value("${upload.path}")        // application.properties 에 설정한 업로드 경로 가져옴
+    @Value("${upload.path}") // application.properties 에 설정한 업로드 경로 가져옴
     private String uploadPath;
 
     /**
@@ -73,15 +72,15 @@ public class FileServiceImpl implements FileService {
         int result = fileMapper.delete(no);
 
         // 파일 시스템의 파일 삭제
-        if( result > 0) {
+        if (result > 0) {
             String filePath = file.getFilePath();
             File deletefile = new File(filePath);
             // 파일 존재 확인
-            if( !deletefile.exists()) {
+            if (!deletefile.exists()) {
                 return result;
             }
             // 파일 삭제
-            if( deletefile.delete() ) {
+            if (deletefile.delete()) {
                 log.info("파일이 정상적으로 삭제 되었습니다.");
                 log.info("file : " + filePath);
             } else {
@@ -107,12 +106,11 @@ public class FileServiceImpl implements FileService {
     public int deleteByParent(Files file) throws Exception {
         List<Files> fileList = fileMapper.listByParent(file);
 
-        
         for (Files deleteFile : fileList) {
             int no = deleteFile.getNo();
             delete(no);
         }
-        
+
         int result = fileMapper.deleteByParent(file);
         log.info(result + "개의 파일을 삭제하였습니다.");
         return result;
@@ -133,7 +131,6 @@ public class FileServiceImpl implements FileService {
         long fileSize = mf.getSize();
         byte[] fileData = mf.getBytes();
 
-
         log.info("원본 파일명 : " + originName);
         log.info("파일 용량 : " + fileSize);
         log.info("파일 데이터" + fileData);
@@ -142,7 +139,7 @@ public class FileServiceImpl implements FileService {
         // - 파일 시스템의 해당 파일을 복사
         // - 파일의 정보를 DB에 등록
 
-        // ✅ 업로드 경로   -   application.properties ( upload.path )
+        // ✅ 업로드 경로 - application.properties ( upload.path )
         // ✅ 파일명
         // - 파일명 중복 방지를 위해 UID_파일명.xx 형식으로 지정
         String fileName = UUID.randomUUID().toString() + "_" + originName;
@@ -164,7 +161,7 @@ public class FileServiceImpl implements FileService {
 
         return true;
     }
-    
+
     /**
      * 파일 다운로드
      */
@@ -177,5 +174,5 @@ public class FileServiceImpl implements FileService {
 
         return file;
     }
-    
+
 }

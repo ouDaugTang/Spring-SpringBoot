@@ -136,6 +136,7 @@ public class BoardController {
     // - 스프링 부트 3.2버전 이상, 필수로 명시해야 매핑된다.
     @GetMapping("/update")
     public String update(@RequestParam("no") int no, Model model, Files file) throws Exception {
+        
          // 데이터 요청
         Board board = boardService.select(no);
 

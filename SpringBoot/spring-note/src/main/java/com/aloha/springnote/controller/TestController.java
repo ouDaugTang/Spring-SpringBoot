@@ -1,4 +1,4 @@
-package main.java.com.aloha.springnote.controller;
+package com.aloha.springnote.controller;
 
 import java.util.Map;
 import java.util.Set;
