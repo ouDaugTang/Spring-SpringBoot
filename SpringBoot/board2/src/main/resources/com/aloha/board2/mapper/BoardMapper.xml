@@ -1,0 +1,45 @@
+    <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<!-- namespace="매퍼 인터페이스 경로" --> 
+<mapper namespace="com.aloha.board2.mapper.BoardMapper">
+
+<!-- 게시글 목록 조회 쿼리 -->
+<select id="list" resultType="Board">
+    SELECT *
+    FROM Board
+    ORDER BY reg_date DESC
+</select>
+
+<!-- 게시글 조회 쿼리 -->
+<select id="read" resultType="Board">
+    SELECT *
+    FROM Board
+    WHERE no = #{no}
+    ORDER BY reg_date DESC
+</select>
+
+<!-- 게시글 등록 -->
+<insert id="insert">
+    INSERT INTO board(title, writer, content)
+    VALUES (#{title}, #{writer}, #{content})
+</insert>
+
+<update id="update">
+    UPDATE board
+    SET
+    title = #{title}
+    ,writer = #{writer}
+    ,content = #{content}
+    ,upd_date = now()
+    WHERE no = #{no}
+</update>
+    
+<delete id="delete">
+    DELETE FROM board
+    WHERE no = #{no}
+</delete>
+
+</mapper>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 조회</title>
+</head>
+
+<body>
+    <h1>/board/read?no=?</h1>
+    <h2>게시글 조회</h2>
+
+    <form action="/board/delete" method="post">
+        <input type="hidden" name="no" th:value="${board.no}">
+        <table border="1">
+            <tr>
+                <td>제목</td>
+                <td>
+                    <input type="text" name="title" id="title" th:value="${board.title}">
+                </td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td>
+                    <input type="text" name="writer" id="writer" th:value="${board.writer}">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <textarea name="content" id="content" cols="22" rows="5" th:text="${board.content}"></textarea>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="삭제하기">
+    </form>
+    <a href="/board/list">
+        <button type="button">목록으로</button>
+    </a>
+    <a th:href="|/board/update?no=${board.no}|">
+        <button type="button">수정으로</button>
+    </a>
+    <script>
+        let no = "[[${board.no}]]"
+    </script>
+</body>
+
+</html>

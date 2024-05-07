@@ -9,6 +9,16 @@
             "projectName": "board",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-Board2Application<board2>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.aloha.board2.Board2Application",
+            "projectName": "board2",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

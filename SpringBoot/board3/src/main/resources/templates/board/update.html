@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수정</title>
+</head>
+<body>
+    <h1>/board/update</h1>
+    <h2>수정</h2>
+
+    <form id="form" action="/board/update" method="post">
+        <table border="1">
+            <input type="hidden" name="no" id="no" th:value="${board.no}">
+            <tr>
+                <td>제목</td>
+                <td><input type="text" name="title" id="title" th:value="${board.title}"></td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td><input type="text" name="writer" id="writer" th:value="${board.writer}"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <textarea name="content" id="content" cols="30" rows="10" th:text="${board.content}"></textarea>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="수정">
+        <input type="button" onclick="moveToList()" value="목록">
+        <input type="button" onclick="actionToDelete()" value="삭제">
+    </form>
+    
+    <script>
+        let no = "[[${board.no}]]"
+        let form = document.getElementById('form')
+
+        function moveToList() {
+            location.href = "/board/list"
+        }
+        function actionToDelete() {
+            let check = confirm('정말로 삭제 하시겠습니까?')
+            
+            if (check) {
+                form.action = "/board/delete"
+                form.submit()
+            }
+        }
+    </script>
+</body>
+</html>

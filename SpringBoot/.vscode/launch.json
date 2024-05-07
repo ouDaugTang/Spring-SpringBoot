@@ -29,6 +29,26 @@
             "projectName": "spring-response",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-Board3Application<board3>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.aloha.board3.Board3Application",
+            "projectName": "board3",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-Board4Application<board4>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.aloha.board4.Board4Application",
+            "projectName": "board4",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
