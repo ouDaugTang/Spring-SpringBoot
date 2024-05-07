@@ -26,5 +26,13 @@ public interface ReplyMapper {
     
     // 댓글 삭제
     public int delete(int no) throws Exception;
+    
+    // ⭐댓글 종속 삭제
+    public int deleteByBoardNo(int boardNo) throws Exception;
 
+    // ⭐최댓값
+    public int max() throws Exception;
+
+    // ⭐답글 종속 삭제
+    public int deleteByParentNo(int parentNo) throws Exception;
 }

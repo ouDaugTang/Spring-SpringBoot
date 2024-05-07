@@ -28,6 +28,7 @@ CREATE TABLE `file` (
 ) COMMENT='파일';
 
 TRUNCATE board;
+TRUNCATE reply;
 TRUNCATE file;
 
 -- board, file 테이블 조인 조회
@@ -148,8 +149,11 @@ CREATE TABLE reply (
   writer        VARCHAR(100) NOT NULL,                        -- 작성자
   content       TEXT NOT NULL,                                -- 내용
   reg_date      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, -- 등록일자
-  upd_date      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP  -- 수정일자
-);
+  upd_date      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, -- 수정일자
+  FOREIGN KEY (board_no) REFERENCES board(no)
+    ON DELETE CASCADE  
+    ON UPDATE CASCADE
+);-- CASCADE, RESTRICT, SET NULL 유형이 더 있음
 
 INSERT INTO reply (board_no, parent_no, writer, content)
 VALUES (140, 0, '김조은', '댓글 내용1'),
@@ -158,3 +162,19 @@ VALUES (140, 0, '김조은', '댓글 내용1'),
         (140, 0, '김조은', '댓글 내용4'),
         (140, 0, '김조은', '댓글 내용5')
         ;
+
+
+DROP TABLE reply;
+-- 댓글 (reply) 테이블에 외래키 추가
+
+--위에것도 되고 이것도 됨 
+ALTER TABLE reply
+ADD CONSTRAINT FK_REPLY_BOARD_NO
+FOREIGN KEY (board_no)
+REFERENCES board(no)
+ON DELETE CASCADE; -- 게시글 삭제 시, 종속된 댓글 삭제
+
+SELECT *
+FROM reply
+WHERE board_no = 1
+ORDER BY reg_date DESC;

@@ -17,13 +17,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service    // 서비스 역할의 스프링 빈 등록
 public class BoardServiceImpl implements BoardService {
+public static void main(String[] args) {
     
+}    
     
     @Autowired
     private BoardMapper boardMapper;
 
     @Autowired
     private FileService fileService;
+
+    @Autowired
+    private ReplyService replyService;
     
 
     @Override
@@ -123,6 +128,9 @@ public class BoardServiceImpl implements BoardService {
         *        ➡ return result
         */
         int result = boardMapper.delete(no);
+        if ( result > 0 ) {
+            result += replyService.deleteByBoardNo(no);
+        }
         return result;
     }
 

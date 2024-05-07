@@ -78,7 +78,7 @@ public class ReplyController {
      */
     @PostMapping("")
     public ResponseEntity<String> insert(@RequestBody Reply reply) throws Exception{
-        log.info("reply : " + reply);
+        log.info("reply 뭘 갖고오니!!!!!!!!!!!!!!!!!!!!!!!!!!: " + reply);
         // 데이터 요청
         int result = replyService.insert(reply);
         if (result > 0) {

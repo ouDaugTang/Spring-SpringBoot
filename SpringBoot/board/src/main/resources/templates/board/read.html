@@ -7,6 +7,10 @@
     <title>게시글 조회</title>
 
     <style>
+        .reply-box.answer {
+            margin-left: 40px;
+        }
+
         .reply-box .inner {
             min-width: 500px;
             max-width: 100vw;
@@ -89,6 +93,7 @@
     </div>
 
     <script>
+
         // 👩‍💻 모델 객체를 자바스크립트로 가져오는 방법
         let no = "[[${board.no}]]"
 
@@ -188,6 +193,7 @@
 
             let writer = $writer.value
             let content = $content.value
+            console.log(content + 'asdfasd' + writer)
 
             let data = {
                 // JS 객체 Oj 
@@ -316,8 +322,13 @@
 
         function deleteReply(no) {
 
+            const check = confirm('정말로 삭제하시겠습니까?')
+            if (!check) {
+                return
+            }
+
             let request = new XMLHttpRequest()
-            request.open('DELETE', `/reply/${no}`)
+            request.open('DELETE', `/reply/` + no)
             request.send()
 
 
@@ -330,6 +341,89 @@
                         replyList()     // 댓글 목록 갱신
                     }
                 }
+            }
+        }
+        
+        // 답글 등록
+        function insertAnswer(element, no) {
+            let $replyBox = element.parentNode.parentNode
+            console.log(`부모번호 : ${no}`)
+            console.log($replyBox)
+
+            // 답글 작성 UI
+            let $editor = document.createElement('div')
+            $editor.classList.add('reply-box')
+            $editor.classList.add('inner')
+            $editor.id = 'answer'
+            let editor = ``
+            editor += `<div class="inner">`
+            editor += `<input type="text" id="answer-writer"/>`   
+            editor += `<br>`   
+            editor += `<textarea cols="60" rows="5" id="answer-content"></textarea>`   
+            editor += `<br>`   
+            editor += `<button onclick="answer(${no})">등록</button>`
+            editor += `<button onclick="cancelAnswer()">취소</button>`   
+            editor += `<br>`   
+            editor += `</div>`
+            $editor.innerHTML = editor
+            
+            let $answer = document.getElementById("answer")
+            
+            if ($answer) {
+                $answer.parentNode.removeChild($answer)
+            }
+
+            // 요소.after(추가요소)
+            // - 요소 바로 뒤에 새 요소를 추가합니다.
+            $replyBox.after($editor)
+        }
+        // 답글 등록 요청
+        function answer(parentNo) {
+            //TODO:
+            // 1. answer-writer, answer-content 값을 가져오고 
+            // 2. data = {부모번호, 작성자, 내용}
+            // 3. POST - /reply 요청
+            let $writer = document.getElementById('answer-writer')
+            let $content = document.getElementById('answer-content')
+
+            let writer = $writer.value
+            let content = $content.value
+
+            let data = {
+                // JS 객체 Oj 
+                // -> 서버측으로 전달 할 때에는 객체라는 개념을 인식못함 
+                // -> 그래서 Json.Stringfy(data) 문자열로 변환해야함
+                'boardNo' : no,
+                'parentNo': parentNo,
+                'writer': writer,
+                'content': content
+            }
+            let request = new XMLHttpRequest()
+            request.open('POST', '/reply')
+            request.setRequestHeader('Content-Type', 'application/json')
+            request.send(JSON.stringify(data))
+
+            request.onreadystatechange = function () {
+
+                // 요청 상태가 변할 때 마다 사용하는 메서드
+                if (request.readyState == request.DONE && request.status == 201) {
+                    // alert(request.responseText) // 응답 메시지 확인
+
+                    let response = request.responseText
+                    if (response == 'SUCCESS') {
+                        replyList() // 댓글 목록 갱신
+                        // 댓글 입력 창 비우기
+                        $writer.value = ''
+                        $content.value = ''
+                    }
+                }
+            }
+        }
+        // 답글 등록 취소
+        function cancelAnswer() {
+            let $answer = document.getElementById("answer")
+            if ($answer) {
+                answer.parentNode.removeChild($answer)
             }
         }
     </script>

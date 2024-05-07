@@ -67,6 +67,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
            SET title = #{title}
               ,writer = #{writer}
               ,content = #{content}
+              <if test="parentNo != 0">
+                ,parent_no = #{parentNo}
+              </if>
               ,upd_date = now()
         WHERE no = #{no}
     </update>
