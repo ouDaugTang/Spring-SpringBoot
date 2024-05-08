@@ -1,4 +1,5 @@
----- user
+-- Active: 1714459978310@@127.0.0.1@3306@joeun
+-- user
 CREATE TABLE `user` (
   `USER_NO` int NOT NULL AUTO_INCREMENT,
   `USER_ID` varchar(100) NOT NULL,

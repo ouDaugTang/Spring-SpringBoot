@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+</head>
+
+<body>
+    <h1>회원가입</h1>
+    <form action="/join" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <table border="1">
+            <tr>
+                <td>ID</td>
+                <td>
+                    <input type="text" name="userId" id="id">
+                </td>
+            </tr>
+            <tr>
+                <td>PW</td>
+                <td>
+                    <input type="password" name="userPw" id="pw">
+                </td>
+            </tr>
+            <tr>
+                <td>이름</td>
+                <td>
+                    <input type="text" name="name" id="name">
+                </td>
+            </tr>
+            <tr>
+                <td>EMAIL</td>
+                <td>
+                    <input type="text" name="email" id="email">
+                </td>
+            </tr>
+            <input type="submit" value="등록">
+        </table>
+    </form>
+</body>
+
+</html>
