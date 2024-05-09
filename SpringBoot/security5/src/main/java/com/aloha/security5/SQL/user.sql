@@ -1,4 +1,5 @@
----- user
+-- Active: 1714459978310@@127.0.0.1@3306@joeun
+-- user
 CREATE TABLE `user` (
   `USER_NO` int NOT NULL AUTO_INCREMENT,
   `USER_ID` varchar(100) NOT NULL,
@@ -29,7 +30,7 @@ VALUES ( 'user', '123456', '사용자', 'user@mail.com' );
 INSERT INTO user ( user_id, user_pw, name, email )
 VALUES ( 'admin', '123456', '관리자', 'admin@mail.com' );
 
-
+TRUNCATE user;
 -- BCryptPasswordEncoder - 암호화 시
 -- 사용자
 INSERT INTO user ( user_id, user_pw, name, email )
@@ -61,3 +62,4 @@ FROM `user`
 SELECT *
 FROM user_auth
 ;
+
