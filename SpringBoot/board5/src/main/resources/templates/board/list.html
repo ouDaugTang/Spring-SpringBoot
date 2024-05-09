@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="/board/insert">등록</a>
+
+    <table border="1">
+        <tr>
+            <th width="50">번호</th>
+            <th width="100">제목</th>
+            <th width="100">작성자</th>
+            <th width="200">등록일자</th>
+            <th width="200">수정일자</th>
+            <th width="50">조회수</th>
+        </tr>
+
+        <th:block th:if="${boardList.isEmpty()}">
+            <th colspan="7">게시글 목록이 존재하지 않습니다.</th>
+        </th:block>
+
+        <th:block th:each="board : ${boardList}">
+            <tr>
+                <td th:text="${board.no}"></td>
+                <td><a th:href="|/board/read?no=${board.no}|" th:text="${board.title}"></a></td>
+                <td th:text="${board.writer}"></td>
+                <td th:text="${#dates.format(board.regDate, 'yyyy-MM-dd, HH:mm:ss')}"></td>
+                <td th:text="${#dates.format(board.updDate, 'yyyy-MM-dd, HH:mm:ss')}"></td>
+                <td th:text="${board.views}"></td>
+            </tr>
+        </th:block>
+    </table>
+</body>
+
+</html>
