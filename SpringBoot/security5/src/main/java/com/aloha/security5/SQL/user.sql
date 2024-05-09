@@ -30,7 +30,7 @@ VALUES ( 'user', '123456', '사용자', 'user@mail.com' );
 INSERT INTO user ( user_id, user_pw, name, email )
 VALUES ( 'admin', '123456', '관리자', 'admin@mail.com' );
 
-
+TRUNCATE user;
 -- BCryptPasswordEncoder - 암호화 시
 -- 사용자
 INSERT INTO user ( user_id, user_pw, name, email )
@@ -62,3 +62,4 @@ FROM `user`
 SELECT *
 FROM user_auth
 ;
+

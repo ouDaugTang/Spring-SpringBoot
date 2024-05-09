@@ -97,12 +97,15 @@ public class SecurityConfig {
             // logoutUrl()        : 로그아웃 처리 요청 경로 지정 ("/logout") [기본값]
             http.logout().logoutSuccessUrl("/login")
                          .logoutUrl("/logout")
+                         // 쿠키 삭제
+                         .deleteCookies("remember-id")
                          .permitAll()
                          ;
 
             // 🔐🤷‍♀️ 자동 로그인 설정
             // key()                  : 자동 로그인에서 토큰 생성/검증에 사용되는 식별키
             // tokenRepository()      : 토큰 저장할 저장소 지정 (데이터소스 포함한 저장소객체)
+            //                             persistent_logins( 자동 로그인 테이블 )
             // tokenValiditySeconds() : 토큰 유효시간 설정 (EX : 7일)
             http.rememberMe().key("aloha").tokenRepository( tokenRepository() )
                              .tokenValiditySeconds( 60 * 60 * 24 * 7 )

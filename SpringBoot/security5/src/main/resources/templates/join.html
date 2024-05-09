@@ -10,33 +10,42 @@
 <body>
     <h1>회원가입</h1>
     <form action="/join" method="post">
+        <!-- ⭐ CSRF TOKEN -->
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+        <!-- 회원 정보 입력 -->
         <table border="1">
             <tr>
                 <td>ID</td>
                 <td>
-                    <input type="text" name="userId" id="id">
+                    <input type="text" name="userId" id="id" placeholder="아이디">
                 </td>
             </tr>
             <tr>
                 <td>PW</td>
                 <td>
-                    <input type="password" name="userPw" id="pw">
+                    <input type="password" name="userPw" id="pw" placeholder="비밀번호">
                 </td>
             </tr>
             <tr>
-                <td>이름</td>
+                <td>PW.CHECK</td>
                 <td>
-                    <input type="text" name="name" id="name">
+                    <input type="password" name="userPwCheck" id="userPwCheck" placeholder="비밀번호 확인">
+                </td>
+            </tr>
+            <tr>
+                <td>NAME</td>
+                <td>
+                    <input type="text" name="name" id="name" placeholder="이름">
                 </td>
             </tr>
             <tr>
                 <td>EMAIL</td>
                 <td>
-                    <input type="text" name="email" id="email">
+                    <input type="text" name="email" id="email" placeholder="이메일">
                 </td>
             </tr>
-            <input type="submit" value="등록">
+            <input type="submit" value="회원가입">
         </table>
     </form>
 </body>
