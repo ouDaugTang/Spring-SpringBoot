@@ -11,6 +11,7 @@ CREATE TABLE `board` (
   PRIMARY KEY (`no`)
 ) COMMENT='게시판';
 
+
 DROP TABLE file;
 
 CREATE TABLE `file` (
